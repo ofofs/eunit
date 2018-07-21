@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * @since JDK 1.7
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.TYPE})
 @Inherited
 @Documented
 public @interface Rule {

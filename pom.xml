@@ -22,7 +22,7 @@
     <developers>
         <developer>
             <name>ofofs</name>
-            <email>java@kangyonggan.com</email>
+            <email>ofofs@kangyonggan.com</email>
         </developer>
     </developers>
 
@@ -43,6 +43,9 @@
         <plugin.source.version>2.2.1</plugin.source.version>
         <plugin.javadoc.version>2.9.1</plugin.javadoc.version>
         <plugin.gpg.version>1.6</plugin.gpg.version>
+
+        <!--common-->
+        <commons-lang3.version>3.3.2</commons-lang3.version>
     </properties>
 
     <build>
@@ -60,6 +63,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
