@@ -11,8 +11,8 @@ public class UserSimpleTest {
 
     public static void main(String[] args) {
         User user = DataFactory.instance(User.class);
-        System.out.println(user.getUsername());
-        System.out.println(user.getName());
+        System.out.println("用户名规则（5~20位）:" + user.getUsername());
+        System.out.println("密码规则（8~30位）:" + user.getPassword());
     }
 
 }

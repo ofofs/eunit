@@ -1,5 +1,6 @@
 package com.ofofs.eunit;
 
+import com.ofofs.eunit.annotation.Rule;
 import com.ofofs.eunit.util.RandomUtil;
 import com.ofofs.eunit.util.Reflections;
 
@@ -53,7 +54,7 @@ public final class DataFactory {
 
         Class<?> type = field.getType();
         if (String.class.getName().equals(type.getName())) {
-            value = generateString();
+            value = generateString(field);
         }
 
         Reflections.setFieldValue(instance, field.getName(), value);
@@ -62,10 +63,15 @@ public final class DataFactory {
     /**
      * 生成一个String类型的值
      *
+     * @param field 字段
      * @return 返回String类型的值
      */
-    private static <T> Object generateString() {
-        // TODO 获取字段的规则注解，按规则赋值，暂时先获取一个随机值，后面再优化
+    private static String generateString(Field field) {
+        Rule rule = field.getAnnotation(Rule.class);
+        if (rule != null) {
+            return RandomUtil.randomString(rule);
+        }
+
         return RandomUtil.randomString();
     }
 }

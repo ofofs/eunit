@@ -5,16 +5,11 @@
 
 package com.ofofs.eunit.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * <p> 生成规则 </p>
- *
+ * <p>
  * Q:
  * 1. 此注解是否需要可以指定具体的类？
  * 2. 如何保证实现类和默认的规则不冲突？
@@ -33,7 +28,7 @@ import java.lang.annotation.Target;
  * @since JDK 1.7
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.TYPE})
+@Target(ElementType.FIELD)
 @Inherited
 @Documented
 public @interface Rule {
@@ -44,12 +39,14 @@ public @interface Rule {
 
     /**
      * 规则说明
+     *
      * @return 规则说明
      */
     String desc() default "";
 
     /**
      * 标签
+     *
      * @return 标签
      */
     String[] tags() default {};
@@ -57,9 +54,24 @@ public @interface Rule {
     /**
      * 分组
      * Q： 需要使用 class 吗？
+     *
      * @return 分组
      */
     String group() default "";
+
+    /**
+     * 最大长度。只作用于String类型的字段
+     *
+     * @return 返回最大长度
+     */
+    int maxLength() default Integer.MAX_VALUE;
+
+    /**
+     * 最小长度。只作用于String类型的字段
+     *
+     * @return 返回最小长度
+     */
+    int minLength() default 0;
 
 
 }

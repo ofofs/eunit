@@ -1,5 +1,7 @@
 package com.ofofs.eunit.model;
 
+import com.ofofs.eunit.annotation.Rule;
+
 import java.util.Date;
 
 /**
@@ -8,8 +10,10 @@ import java.util.Date;
  */
 public class User extends Person {
 
+    @Rule(minLength = 5, maxLength = 20)
     private String username;
 
+    @Rule(minLength = 8, maxLength = 30)
     private String password;
 
     private Date birthday;
