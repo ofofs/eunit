@@ -3,7 +3,7 @@
  * eunit All rights reserved.
  */
 
-package com.ofofs.eunit.annotation;
+package com.github.ofofs.eunit.annotation;
 
 import java.lang.annotation.*;
 

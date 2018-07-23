@@ -1,8 +1,8 @@
-package com.ofofs.eunit;
+package com.github.ofofs.eunit;
 
-import com.ofofs.eunit.annotation.Rule;
-import com.ofofs.eunit.util.RandomUtil;
-import com.ofofs.eunit.util.Reflections;
+import com.github.ofofs.eunit.annotation.Rule;
+import com.github.ofofs.eunit.util.RandomUtil;
+import com.github.ofofs.eunit.util.Reflections;
 
 import java.lang.reflect.Field;
 import java.util.List;

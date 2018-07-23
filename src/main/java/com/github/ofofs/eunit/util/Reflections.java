@@ -1,4 +1,4 @@
-package com.ofofs.eunit.util;
+package com.github.ofofs.eunit.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;

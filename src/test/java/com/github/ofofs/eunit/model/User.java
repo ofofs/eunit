@@ -1,6 +1,6 @@
-package com.ofofs.eunit.model;
+package com.github.ofofs.eunit.model;
 
-import com.ofofs.eunit.annotation.Rule;
+import com.github.ofofs.eunit.annotation.Rule;
 
 import java.util.Date;
 

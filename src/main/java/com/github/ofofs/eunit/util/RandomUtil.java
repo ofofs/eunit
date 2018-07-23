@@ -1,6 +1,6 @@
-package com.ofofs.eunit.util;
+package com.github.ofofs.eunit.util;
 
-import com.ofofs.eunit.annotation.Rule;
+import com.github.ofofs.eunit.annotation.Rule;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package com.ofofs.eunit.model;
+package com.github.ofofs.eunit.model;
 
 /**
  * @author kangyonggan
