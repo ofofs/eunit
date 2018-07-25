@@ -13,7 +13,7 @@ public class User extends Person {
     @Rule(minLength = 5, maxLength = 20)
     private String username;
 
-    @Rule(minLength = 8, maxLength = 30)
+    @Rule
     private String password;
 
     private Date birthday;
@@ -21,6 +21,9 @@ public class User extends Person {
     private Byte sex;
 
     private Integer level;
+
+    @Rule(regex = "^1[3458]\\d{9}$")
+    private String mobile;
 
     public String getUsername() {
         return username;
@@ -60,5 +63,13 @@ public class User extends Person {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

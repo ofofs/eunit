@@ -64,14 +64,22 @@ public @interface Rule {
      *
      * @return 返回最大长度
      */
-    int maxLength() default Integer.MAX_VALUE;
+    int maxLength() default 30;
 
     /**
      * 最小长度。只作用于String类型的字段
      *
      * @return 返回最小长度
      */
-    int minLength() default 0;
+    int minLength() default 3;
+
+    /**
+     * 正则表达式。只作用域String类型的字段，提供有常用正则的枚举，
+     * 有正则表达式的情况下不再使用maxLength、minLength等其他规则。
+     *
+     * @return 返回正则表达式
+     */
+    String regex() default "";
 
 
 }

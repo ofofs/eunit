@@ -1,6 +1,8 @@
 package com.github.ofofs.eunit.util;
 
 import com.github.ofofs.eunit.annotation.Rule;
+import com.github.ofofs.reggen.RegexGenerator;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Random;
 
@@ -49,6 +51,11 @@ public final class RandomUtil {
      * @return 返回字符串
      */
     public static String randomString(Rule rule) {
+        // 有正则表达式的时候不再使用其他规则
+        if (StringUtils.isNotEmpty(rule.regex())) {
+            return RegexGenerator.generate(rule.regex());
+        }
+
         // 字符串的长度在minLength和maxLength之间随机
         Random random = new Random();
         int randomLength = random.nextInt(rule.maxLength() - rule.minLength() + 1) + rule.minLength();
