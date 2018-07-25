@@ -81,5 +81,25 @@ public @interface Rule {
      */
     String regex() default "";
 
+    /**
+     * 最大值。只作用于数字类型的字段
+     *
+     * @return 返回最大值
+     */
+    int max() default 1000;
+
+    /**
+     * 最小值。只作用于数字类型的字段
+     *
+     * @return 返回最小值
+     */
+    int min() default 0;
+
+    /**
+     * 精度。只作用于Float类型和和Double类型。
+     *
+     * @return 返回精度
+     */
+    int precision() default 2;
 
 }
