@@ -9,7 +9,7 @@
     <version>1.0.0</version>
 
     <name>EUnit</name>
-    <description>Easy Unit</description>
+    <description>自动生成测试数据</description>
 
     <url>https://github.com/ofofs/eunit</url>
 
