@@ -6,7 +6,7 @@
 
     <groupId>com.github.ofofs</groupId>
     <artifactId>eunit</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
 
     <name>EUnit</name>
     <description>自动生成测试数据</description>
