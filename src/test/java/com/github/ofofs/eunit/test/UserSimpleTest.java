@@ -1,7 +1,7 @@
 package com.github.ofofs.eunit.test;
 
 import com.github.ofofs.eunit.DataFactory;
-import com.github.ofofs.eunit.model.User;
+import com.github.ofofs.eunit.test.model.User;
 
 /**
  * @author kangyonggan

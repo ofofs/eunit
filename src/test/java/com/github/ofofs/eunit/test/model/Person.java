@@ -1,4 +1,4 @@
-package com.github.ofofs.eunit.model;
+package com.github.ofofs.eunit.test.model;
 
 import com.github.ofofs.eunit.annotation.Rule;
 
