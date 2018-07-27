@@ -6,7 +6,7 @@
 
     <groupId>com.github.ofofs</groupId>
     <artifactId>eunit</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.0.RELEASE</version>
 
     <name>EUnit</name>
     <description>自动生成测试数据</description>
@@ -70,7 +70,7 @@
             <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ofofs</groupId>
+            <groupId>com.github.ofofs</groupId>
             <artifactId>reggen</artifactId>
             <version>${reggen.version}</version>
         </dependency>
