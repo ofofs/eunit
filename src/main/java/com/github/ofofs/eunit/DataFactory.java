@@ -36,6 +36,10 @@ public final class DataFactory {
 
             // 遍历所有字段并赋值
             for (Field field : fields) {
+                Rule rule = field.getAnnotation(Rule.class);
+                if (rule != null && rule.ignore()) {
+                    continue;
+                }
                 processField(field, instance);
             }
             return instance;

@@ -23,6 +23,13 @@ import java.lang.annotation.*;
 public @interface Rule {
 
     /**
+     * 是否忽略此字段
+     *
+     * @return 默认不忽略
+     */
+    boolean ignore() default false;
+
+    /**
      * 最大长度。只作用于String类型的字段
      *
      * @return 返回最大长度
