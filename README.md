@@ -4,7 +4,7 @@ Easy Unit
 ## 依赖
 ```
 <dependency>
-    <groupId>com.ofofs</groupId>
+    <groupId>com.github.ofofs</groupId>
     <artifactId>eunit</artifactId>
     <version>${eunit.version}</version>
 </dependency>
