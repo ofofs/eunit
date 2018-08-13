@@ -2,16 +2,17 @@ package com.github.ofofs.eunit;
 
 import com.github.ofofs.eunit.annotation.Constraint;
 import com.github.ofofs.eunit.annotation.Rule;
+import com.github.ofofs.eunit.core.ConstraintAnnotationRuler;
 import com.github.ofofs.eunit.core.ConstraintContext;
 import com.github.ofofs.eunit.core.ConstraintRuler;
 import com.github.ofofs.eunit.core.impl.DefaultConstraintContext;
+import com.github.ofofs.eunit.core.impl.DefaultConstraintRuler;
 import com.github.ofofs.eunit.exception.RuleRuntimeException;
 import com.github.ofofs.eunit.util.RandomUtil;
 import com.github.ofofs.eunit.util.Reflections;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,10 +53,15 @@ public final class DataFactory {
                 Rule rule = field.getAnnotation(Rule.class);
                 if (rule != null) {
                     if (!rule.ignore()) {
-                        processField(field, instance);
+                        Class ruledByClass = rule.ruler();
+                        if (ruledByClass.equals(DefaultConstraintRuler.class)) {
+                            processField(field, instance);
+                        } else {
+                            processRulerField(ruledByClass, field, instance, processedField);
+                        }
                     }
                 } else {
-                    processConstraintField(field, instance, processedField);
+                    processDefineAnnotationField(field, instance, processedField);
                 }
 
                 processedField.add(field);
@@ -69,43 +75,74 @@ public final class DataFactory {
     /**
      * 执行约束字段
      *
+     * @param ruledByClass   规则类
      * @param field          字段信息
      * @param instance       当前实例化对象
      * @param processedField 已经执行过的字段信息
      */
-    private static void processConstraintField(final Field field, final Object instance,
-                                               final List<Field> processedField) {
-        Optional<Constraint> constraintOptional = containsConstraintAnnotation(field);
-        if (constraintOptional.isPresent()) {
+    private static void processRulerField(final Class ruledByClass,
+                                          final Field field,
+                                          final Object instance,
+                                          final List<Field> processedField) {
+        //TODO: 如何根据字段获取对应的泛型？
+        ConstraintContext constraintContext = new DefaultConstraintContext<>(instance,
+                field, processedField);
+
+        try {
+            ConstraintRuler constraintRuler = (ConstraintRuler) ruledByClass.newInstance();
+            Object ruleValue = constraintRuler.rule(constraintContext);
+            field.setAccessible(true);
+
+            field.set(instance, ruleValue);
+        } catch (IllegalAccessException | InstantiationException e) {
+            throw new RuleRuntimeException(e);
+        }
+    }
+
+    /**
+     * 执行自定义注解字段
+     *
+     * @param field          字段信息
+     * @param instance       当前实例化对象
+     * @param processedField 已经执行过的字段信息
+     */
+    private static void processDefineAnnotationField(final Field field, final Object instance,
+                                                     final List<Field> processedField) {
+        Optional<Annotation> annotationOptional = containsDefineAnnotation(field);
+        if (annotationOptional.isPresent()) {
             //TODO: 如何根据字段获取对应的泛型？
+            Annotation annotation = annotationOptional.get();
+            Constraint constraint = annotation.annotationType().getAnnotation(Constraint.class);
+
+            Class ruledByClass = constraint.value();
             ConstraintContext constraintContext = new DefaultConstraintContext<>(instance,
                     field, processedField);
-
-            Constraint constraint = constraintOptional.get();
-            Class ruledByClass = constraint.value();
             try {
-                ConstraintRuler constraintRuler = (ConstraintRuler) ruledByClass.newInstance();
+                ConstraintAnnotationRuler constraintRuler = (ConstraintAnnotationRuler) ruledByClass.newInstance();
+                constraintRuler.init(annotation);
                 Object ruleValue = constraintRuler.rule(constraintContext);
                 field.setAccessible(true);
 
                 field.set(instance, ruleValue);
-            } catch (IllegalAccessException | InstantiationException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuleRuntimeException(e);
             }
         }
     }
 
     /**
-     * 是否包含约束类注解
+     * 是否包含自定义约束类注解
      *
-     * TODO: 此处后期拓展为用户可以自定义注解
      * @param field 字段信息
      * @return 是否包含
      */
-    private static Optional<Constraint> containsConstraintAnnotation(final Field field) {
-        Constraint constraint = field.getAnnotation(Constraint.class);
-        if(constraint != null) {
-            return Optional.of(constraint);
+    private static Optional<Annotation> containsDefineAnnotation(final Field field) {
+        Annotation[] annotations = field.getAnnotations();
+        for (Annotation annotation : annotations) {
+            Constraint constraint = annotation.annotationType().getAnnotation(Constraint.class);
+            if (constraint != null) {
+                return Optional.of(annotation);
+            }
         }
         return Optional.empty();
     }

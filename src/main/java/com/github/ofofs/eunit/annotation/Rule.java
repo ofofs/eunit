@@ -5,6 +5,9 @@
 
 package com.github.ofofs.eunit.annotation;
 
+import com.github.ofofs.eunit.core.ConstraintRuler;
+import com.github.ofofs.eunit.core.impl.DefaultConstraintRuler;
+
 import java.lang.annotation.*;
 
 /**
@@ -71,5 +74,11 @@ public @interface Rule {
      * @return 返回精度
      */
     int precision() default 2;
+
+    /**
+     * 指定约束类的规则
+     * @return 约束类
+     */
+    Class<? extends ConstraintRuler<?>> ruler() default DefaultConstraintRuler.class;
 
 }

@@ -1,12 +1,13 @@
 package com.github.ofofs.eunit.annotation;
 
-import com.github.ofofs.eunit.core.ConstraintRuler;
+import com.github.ofofs.eunit.core.ConstraintAnnotationRuler;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
@@ -20,7 +21,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since JDK 1.8
  */
 @Documented
-@Target({ FIELD })
+@Target({ TYPE })
 @Retention(RUNTIME)
 public @interface Constraint {
 
@@ -28,6 +29,6 @@ public @interface Constraint {
      * 指定约束类的规则
      * @return 约束类
      */
-    Class<? extends ConstraintRuler<?>> value();
+    Class<? extends ConstraintAnnotationRuler<? extends Annotation, ?>> value();
 
 }
